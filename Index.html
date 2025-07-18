@@ -1,209 +1,220 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Knalha Store</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Knalha Division</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
     }
+
     body {
-      background-color: #0a0a0a;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
       color: white;
       overflow-x: hidden;
     }
-    #loading-screen {
+
+    #preloader {
       position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: black url('KNA_IMAGE.png') no-repeat center center;
+      background-size: cover;
       z-index: 9999;
     }
+
     #main {
       display: none;
       padding: 20px;
     }
-    header {
+
+    h1 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #990000;
+      margin-bottom: 30px;
     }
-    header h1 {
-      font-size: 3em;
-      color: #e60000;
-    }
+
     .carousel {
       display: flex;
       overflow-x: auto;
-      gap: 20px;
-      padding: 20px 0;
       scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding-bottom: 20px;
     }
+
     .product {
-      min-width: 250px;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 20px;
+      flex: 0 0 auto;
+      width: 220px;
+      background: #111;
+      border: 2px solid #990000;
+      border-radius: 10px;
+      padding: 10px;
       scroll-snap-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
     }
+
     .product:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px #e60000;
+      box-shadow: 0 0 15px #ff0000;
+      cursor: pointer;
     }
+
     .product img {
-      max-width: 80px;
-      margin-bottom: 15px;
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
     }
-    .product h2 {
-      font-size: 1.5em;
-      color: #e60000;
+
+    .product h3 {
+      margin: 5px 0;
+      color: #ff4444;
     }
+
     .product p {
-      margin: 10px 0;
+      font-size: 14px;
       color: #ccc;
     }
-    .product button {
-      background: #e60000;
-      border: none;
-      padding: 10px;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .qrcode-modal {
-      display: none;
+
+    .modal {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
       justify-content: center;
       align-items: center;
-      z-index: 999;
+      z-index: 10000;
     }
-    .qrcode-box {
+
+    .modal-content {
       background: #111;
-      padding: 20px;
-      border-radius: 20px;
-      text-align: center;
-    }
-    .qrcode-box img {
-      max-width: 200px;
-    }
-    .qrcode-box button {
-      margin-top: 15px;
-    }
-    .group-link {
-      text-align: center;
-      margin: 40px 0;
-    }
-    .group-link a {
-      color: red;
-      text-decoration: none;
-      font-size: 1.5em;
-      border: 1px solid red;
-      padding: 10px 20px;
+      padding: 30px;
+      border: 2px solid #990000;
       border-radius: 10px;
-      transition: 0.3s;
-    }
-    .group-link a:hover {
-      background: red;
+      text-align: center;
       color: white;
+    }
+
+    .modal-content img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #990000;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .whatsapp-btn {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .whatsapp-btn a {
+      background: #25d366;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div id="loading-screen">
-    <img src="KNA_IMAGE.png" alt="Carregando" width="300" />
-  </div>
-  <div id="main">
-    <header>
-      <h1>KNALHA STORE</h1>
-    </header>
-    <div class="carousel">
-      <div class="product" onclick="openQR('Método Ban', '10,00')">
-        <img src="https://img.icons8.com/ios/452/ban.png"/>
-        <h2>Método Ban</h2>
-        <p>Ban permanente WhatsApp</p>
-        <p><strong>R$10,00</strong></p>
-        <button>Comprar</button>
-      </div>
-      <div class="product" onclick="openQR('Método Desban', '7,00')">
-        <img src="https://img.icons8.com/ios/452/unlock.png"/>
-        <h2>Método Desban</h2>
-        <p>Remoção de banimento</p>
-        <p><strong>R$7,00</strong></p>
-        <button>Comprar</button>
-      </div>
-      <div class="product" onclick="openQR('Netflix Mensal', '5,00')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"/>
-        <h2>Netflix</h2>
-        <p>Conta mensal</p>
-        <p><strong>R$5,00</strong></p>
-        <button>Comprar</button>
-      </div>
-      <div class="product" onclick="openQR('Crunchyroll Mensal', '5,00')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Crunchyroll_Logo.svg"/>
-        <h2>Crunchyroll</h2>
-        <p>Anime premium</p>
-        <p><strong>R$5,00</strong></p>
-        <button>Comprar</button>
-      </div>
-      <div class="product" onclick="openQR('Disney Plus Mensal', '5,00')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"/>
-        <h2>Disney+</h2>
-        <p>Acesso mensal completo</p>
-        <p><strong>R$5,00</strong></p>
-        <button>Comprar</button>
-      </div>
-      <div class="product" onclick="openQR('Spotify Mensal', '8,00')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg"/>
-        <h2>Spotify</h2>
-        <p>Conta Premium</p>
-        <p><strong>R$8,00</strong></p>
-        <button>Comprar</button>
-      </div>
+
+<div id="preloader"></div>
+
+<div id="main">
+  <h1>KNALHA DIVISION - PRODUTOS</h1>
+
+  <div class="carousel">
+    <div class="product" onclick="abrirModal('Método Ban - R$10,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/152/152758.png" alt="Ban">
+      <h3>Método Ban</h3>
+      <p>de ban em qualquer pessoa em segundos.</p>
     </div>
-    <div class="group-link">
-      <a href="https://chat.whatsapp.com/EXEMPLO" target="_blank">Entrar no grupo dos KNALHA</a>
+
+    <div class="product" onclick="abrirModal('Método Desban - R$7,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/709/709790.png" alt="Desban">
+      <h3>Método Desban</h3>
+      <p>Recupere contas banidas com segurança.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Netflix Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732228.png" alt="Netflix">
+      <h3>Netflix Mensal</h3>
+      <p>Acesso premium Netflix por 30 dias.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Crunchyroll Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Crunchyroll">
+      <h3>Crunchyroll</h3>
+      <p>Animes em alta qualidade, sem anúncios.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Disney+ Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968706.png" alt="Disney+">
+      <h3>Disney+</h3>
+      <p>Filmes e séries da Disney, Marvel e mais.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Spotify Premium - R$8,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968905.png" alt="Spotify">
+      <h3>Spotify</h3>
+      <p>Escute músicas sem interrupções por 30 dias.</p>
     </div>
   </div>
-  <div class="qrcode-modal" id="qrcodeModal">
-    <div class="qrcode-box">
-      <h2 id="itemTitle">Produto</h2>
-      <p>Valor: R$<span id="itemValue">0,00</span></p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=chavepix%40exemplo.com.br&size=200x200" alt="QR PIX" />
-      <br />
-      <button onclick="alert('Verificação em andamento...')">Verificar Pagamento</button>
-      <br />
-      <button onclick="closeQR()">Fechar</button>
-    </div>
+
+  <div class="whatsapp-btn">
+    <a href="https://chat.whatsapp.com/SEU-LINK-AQUI" target="_blank">Entrar no Grupo dos Knalha</a>
   </div>
-  <script>
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('main').style.display = 'block';
-      }, 1500);
-    }
-    function openQR(title, price) {
-      document.getElementById('itemTitle').innerText = title;
-      document.getElementById('itemValue').innerText = price;
-      document.getElementById('qrcodeModal').style.display = 'flex';
-    }
-    function closeQR() {
-      document.getElementById('qrcodeModal').style.display = 'none';
-    }
-  </script>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="produtoTitulo"></h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/QR_Code_Example.svg" alt="QR Code Pix">
+    <p>Chave Pix: <strong>seuemail@pix.com</strong></p>
+    <button onclick="alert('Pagamento enviado!')">Pagar</button>
+    <button onclick="alert('Verificando...')">Verificar Pagamento</button>
+    <button onclick="fecharModal()">Fechar</button>
+  </div>
+</div>
+
+<script>
+  function abrirModal(titulo) {
+    document.getElementById('produtoTitulo').innerText = titulo;
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  // Carregamento
+  window.onload = () => {
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }, 2500);
+  }
+</script>
+
 </body>
 </html>
