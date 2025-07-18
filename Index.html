@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Knalha Division</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black url('KNA_IMAGR.png') no-repeat center center;
+      background-size: cover;
+      z-index: 9999;
+    }
+
+    #main {
+      display: none;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #990000;
+      margin-bottom: 30px;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding-bottom: 20px;
+    }
+
+    .product {
+      flex: 0 0 auto;
+      width: 220px;
+      background: #111;
+      border: 2px solid #990000;
+      border-radius: 10px;
+      padding: 10px;
+      scroll-snap-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff0000;
+      cursor: pointer;
+    }
+
+    .product img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .product h3 {
+      margin: 5px 0;
+      color: #ff4444;
+    }
+
+    .product p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 30px;
+      border: 2px solid #990000;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    .modal-content img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #990000;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .whatsapp-btn {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .whatsapp-btn a {
+      background: #25d366;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader"></div>
+
+<div id="main">
+  <h1>KNALHA DIVISION - PRODUTOS</h1>
+
+  <div class="carousel">
+    <div class="product" onclick="abrirModal('Método Ban - R$10,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/152/152758.png" alt="Ban">
+      <h3>Método Ban</h3>
+      <p>Remova contas de qualquer grupo em segundos.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Método Desban - R$7,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/709/709790.png" alt="Desban">
+      <h3>Método Desban</h3>
+      <p>Recupere contas banidas com segurança.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Netflix Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732228.png" alt="Netflix">
+      <h3>Netflix Mensal</h3>
+      <p>Acesso premium Netflix por 30 dias.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Crunchyroll Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Crunchyroll">
+      <h3>Crunchyroll</h3>
+      <p>Animes em alta qualidade, sem anúncios.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Disney+ Mensal - R$5,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968706.png" alt="Disney+">
+      <h3>Disney+</h3>
+      <p>Filmes e séries da Disney, Marvel e mais.</p>
+    </div>
+
+    <div class="product" onclick="abrirModal('Spotify Premium - R$8,00')">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968905.png" alt="Spotify">
+      <h3>Spotify</h3>
+      <p>Escute músicas sem interrupções por 30 dias.</p>
+    </div>
+  </div>
+
+  <div class="whatsapp-btn">
+    <a href="https://chat.whatsapp.com/SEU-LINK-AQUI" target="_blank">Entrar no Grupo dos Knalha</a>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="produtoTitulo"></h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/QR_Code_Example.svg" alt="QR Code Pix">
+    <p>Chave Pix: <strong>seuemail@pix.com</strong></p>
+    <button onclick="alert('Pagamento enviado!')">Pagar</button>
+    <button onclick="alert('Verificando...')">Verificar Pagamento</button>
+    <button onclick="fecharModal()">Fechar</button>
+  </div>
+</div>
+
+<script>
+  function abrirModal(titulo) {
+    document.getElementById('produtoTitulo').innerText = titulo;
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  // Carregamento
+  window.onload = () => {
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>
